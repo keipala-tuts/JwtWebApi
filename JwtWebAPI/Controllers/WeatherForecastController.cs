@@ -5,7 +5,6 @@ namespace JwtWebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -20,7 +19,7 @@ namespace JwtWebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")] // can use AllowAnonymous to allow access to one controller
+        [HttpGet(Name = "GetWeatherForecast"), Authorize(Roles = "Admin")] // can use AllowAnonymous to allow access to one controller
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
